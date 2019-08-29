@@ -3,21 +3,10 @@ import Todo from './Todo.js';
 import './App.css';
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      todos: window.localStorage.getItem('react-app-todos')
-    }
-
-    if (this.state.todos) {
-      this.state.todos = JSON.parse(this.state.todos);
-    } else {
-      this.state.todos = [
-        { title: "Go to The Store", done: true },
-        { title: "Buy Ingredients", done: true },
-        { title: "Cook borstch", done: false },
-        { title: "Eat borstch", done: false }
-      ]
+      todos: props.todos
     }
 
     this.todoInput = "";
@@ -25,10 +14,15 @@ class App extends React.Component {
 
   addTodo() {
     if (this.todoInput.value.length > 0) {
-      var newTodos = this.state.todos.concat({ title: this.todoInput.value });
+      var newTodo = { title: this.todoInput.value, done: false };
+      var newTodos = this.state.todos.concat(newTodo);
       this.setState({ todos: newTodos });
       this.todoInput.value = "";
-      window.localStorage.setItem('react-app-todos', JSON.stringify(newTodos));
+
+    fetch("http://" + window.location.host + ":5000/todos", { method: "POST", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newTodo) }).then(response => response.json())
+      .then(response => {
+        console.log(response);
+      });
     }
   }
 
@@ -37,14 +31,12 @@ class App extends React.Component {
     this.setState({
       todos: newTodos
     });
-    window.localStorage.setItem('react-app-todos', JSON.stringify(newTodos));
   }
 
   changeChecked(index) {
     var newTodos = this.state.todos
     newTodos[index].done = !newTodos[index].done;
     this.setState({ todos: newTodos });
-    window.localStorage.setItem('react-app-todos', JSON.stringify(newTodos));
   }
 
   render() {
