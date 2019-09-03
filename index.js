@@ -24,40 +24,46 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
-// Routes
+// Display main page
 app.get('/', (req, res) => res.render('pages/index'));
-
 app.get('/todos', (req, res) => {
-	res.status(200).json({ todos: [
-        { title: "Go to The Store", done: true },
-        { title: "Buy Ingredients", done: true },
-        { title: "Cook borstch", done: false },
-        { title: "Eat borstch", done: false }
-	]});
+	// Find all and return the array
+	ToDo.find({}, (error, docs) => {
+		res.status(200).json({ todos: docs });
+	});
 });
-
 app.post('/todos', (req, res) => {
-	console.log(req.body, req.params);
-	// console.log(req.body, res);
-	// console.log(req.params, req);
-	// console.log(req.params.todo.title, req.params.todo.done);
+	// Create and return new
 	ToDo.create({
 		title: req.body.title,
 		done: !!req.body.done
+	}, function(error, doc) {
+		res.status(200).json(doc);
 	});
 });
-
-app.get('/todos/:id', (req, res) => {
-	res.status(200).json({ title: "Go to The Store", done: true, id: req.params.id });
+app.patch('/todos/:id', (req, res) => {
+	// Update checkmark for one Todo
+	ToDo.updateOne({ _id: req.params.id }, { done: req.body.done }, (error, result) => {
+		res.status(200).json(result);
+	});
 });
-
-app.put('/todos/:id', (req, res) => {
-	console.log(req, res);
-});
-
 app.delete('/todos/:id', (req, res) => {
-	console.log(req.params.id);
+	// Delete Todo
+	ToDo.deleteOne({ _id: req.params.id }, (error, result) => {
+		res.status(200).json(result);
+	});
 });
+// app.get('/todos/:id', (req, res) => {
+// 	res.status(200).json({ title: "Go to The Store", done: true, id: req.params.id });
+// });
 
 // Start server
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+
+
+
+// { title: "Go to The Store", done: true },
+// { title: "Buy Ingredients", done: true },
+// { title: "Cook borstch", done: false },
+// { title: "Eat borstch", done: false }

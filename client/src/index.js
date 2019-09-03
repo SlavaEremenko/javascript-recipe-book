@@ -15,10 +15,9 @@ fetch("http://" + window.location.host + ":5000/todos")
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
-
-
-// fetch("http://" + window.location.host + ":5000/todos/3", { method: "DELETE" }).then(response => response.json())
+// fetch("http://" + window.location.host + ":5000/todos/3", { method: "GET" }).then(response => response.json())
 // 	.then(response => {
 // 		console.log(response);
 // 	});
 
+// fetch("http://" + window.location.host + ":5000/todos", { method: "POST", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title: "Borstch", done: true }) }).then(response => response.json()).then(response => { console.log(response); });

@@ -15,28 +15,34 @@ class App extends React.Component {
   addTodo() {
     if (this.todoInput.value.length > 0) {
       var newTodo = { title: this.todoInput.value, done: false };
-      var newTodos = this.state.todos.concat(newTodo);
-      this.setState({ todos: newTodos });
-      this.todoInput.value = "";
 
-    fetch("http://" + window.location.host + ":5000/todos", { method: "POST", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newTodo) }).then(response => response.json())
-      .then(response => {
-        console.log(response);
+    fetch("http://" + window.location.host + ":5000/todos", { method: "POST", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newTodo) })
+      .then(doc => doc.json())
+      .then(doc => {
+        this.setState({ todos: this.state.todos.concat(doc) });
+        this.todoInput.value = "";
       });
     }
   }
 
   deleteTodo(index) {
-    var newTodos = this.state.todos.filter((todo,i) => { return i !== index });
-    this.setState({
-      todos: newTodos
-    });
+    fetch("http://" + window.location.host + ":5000/todos/" + this.state.todos[index]._id, { method: "DELETE" })
+      .then(response => response.json())
+      .then(response => {
+        var newTodos = this.state.todos.filter((todo,i) => { return i !== index });
+        this.setState({
+          todos: newTodos
+        });
+      });
   }
 
   changeChecked(index) {
-    var newTodos = this.state.todos
+    var newTodos = this.state.todos;
     newTodos[index].done = !newTodos[index].done;
-    this.setState({ todos: newTodos });
+
+    fetch("http://" + window.location.host + ":5000/todos/" + newTodos[index]._id, { method: "PATCH", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ done: newTodos[index].done }) })
+      .then(doc => doc.json())
+      .then(doc => this.setState({ todos: newTodos }) );
   }
 
   render() {
@@ -57,3 +63,9 @@ class App extends React.Component {
 }
 
 export default App;
+
+// TODO
+// Ensure Mongo DB is connected
+// Create ToDo action must result in a verifiable db entry creation
+// Make index send Todos from database
+// 
