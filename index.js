@@ -29,6 +29,7 @@ app.get('/', (req, res) => res.render('pages/index'));
 app.get('/todos', (req, res) => {
 	// Find all and return the array
 	ToDo.find({}, (error, docs) => {
+		console.log(docs);
 		res.status(200).json({ todos: docs });
 	});
 });
