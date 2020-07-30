@@ -1,0 +1,310 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:400,600,700,800&display=swap&subset=cyrillic');
+
+#root {
+  margin: 0px;
+}
+
+input, button {
+  margin-right: 10px;
+  font-size: 16px;
+  padding: 6px;
+}
+
+li {
+  margin-bottom: 7px;
+}
+
+li > button {
+  padding: 2px 4px;
+  margin-right: 3px;
+  margin-left: 3px;
+  font-size: 12px;
+}
+
+li.done {
+  text-decoration: line-through;
+}
+
+input[type=checkbox] {
+  margin: 0px 7px 0px 10px;
+}
+
+button.delete {
+  color: red;
+}
+
+section {
+  box-shadow: 0 0 0px 1px rgba(0,0,0,0.0);
+  width: 33.33%;
+  width: 50%;
+  height: 100%;
+  float: left;
+
+  &.double {
+    width: 66.66%;
+    width: 50%;
+  }
+
+  > img {
+    padding: 0px;
+    width: 100%;
+  }
+
+  h1, h2, p, ul, ol {
+    box-sizing: border-box;
+    margin: 30px;
+    width: auto;
+  }
+
+  h1 {
+    font: 500 32px 'Rubik';
+    border-bottom: 3px solid #fc42ff;
+    display: inline-block;
+    /*padding: 0px 8px;*/
+    /*background: rgba(252, 66, 255, 0.28);*/
+  }
+
+  h2 {
+    font: 500 25px 'Rubik';
+    margin-bottom: 15px;
+    padding: 0px 6px;
+    background: rgba(255, 136, 66, 0.28);
+    display: inline-block;
+  }
+
+  p {
+    font: 16px 'Open Sans';
+    margin-top: 15px;
+  }
+
+  ul, ol {
+    margin-top: 15px;
+    margin-left: 15px;
+
+    > li {
+      font: 16px 'Open Sans';
+      margin: 0px 0px 2px 0px;
+      padding: 0px;
+    }
+  }
+
+  ul {
+    list-style-type: none;
+
+    li {
+      &:before {
+        content: "";
+        width: 5px;
+        height: 5px;
+        position: absolute;
+        background: rgba(252, 66, 255, 0.45);
+        border: 1px solid rgb(252, 84, 255);
+        border-radius: 20px;
+        margin: 7px 0px 0px -19px;
+      }
+    }
+  }
+
+  ol {
+    counter-reset: item;
+    list-style-type: none;
+
+    li {
+      position: relative;
+
+      &:before {
+        content: counter(item) " ";
+        counter-increment: item;
+        position: absolute;
+        background: rgb(204, 234, 255);
+        border-radius: 20px;
+        margin: 2px 7px 0px 0px;
+        font: 500 13px Rubik,"Open Sans";
+        text-align: center;
+        padding: 1px 5px 1px 4px;
+        right: 100%;
+        color: black;
+      }
+    }
+  }
+}
+
+.ingredients-table {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px 0px 30px 30px;
+
+  > table {
+    width: 100%;
+    font: 16px/18px 'Open Sans';
+
+    > tbody > tr:first-child {
+      width: 1000px;
+    }
+
+    > thead th, > tfoot td {
+      font: 500 15px/18px 'Rubik';
+    }
+
+    td, th {
+      text-align: right;
+      font: 400 15px/18px 'Open Sans';
+      padding: 2px 7px 2px 2px;
+      padding: 2px 9px 2px 9px;
+    }
+
+    tbody > tr > td:first-child {
+      text-align: left;
+      font: 16px/18px 'Open Sans';
+      padding-left: 9px;
+    }
+
+    > tfoot > tr > td {
+      padding-top: 11px;
+    }
+
+    > tbody > tr:last-child > td {
+      border-bottom: 1px solid grey;
+      padding-bottom: 13px;
+    }
+
+    > thead > tr > th {
+      padding-bottom: 11px;
+    }
+    > tbody > tr:first-child > td {
+      border-top: 1px solid grey;
+      padding-top: 12px;
+    }
+
+    /*> tbody > tr > td:nth-child(3),
+    > tbody > tr > td:nth-child(4),
+    > tbody > tr > td:nth-child(7),
+    > tbody > tr > td:nth-child(8)*/
+    > tbody > tr > td {
+      border-left: 1px solid grey;
+    }
+    > tbody > tr > td:last-child {
+      border-right: 1px solid grey;
+      padding-right: 9px;
+    }
+
+    /* Ingredients table Rounded corners */
+    > tbody > tr:first-child {
+      > td:first-child { border-top-left-radius: 0px; }
+      > td:last-child { border-top-right-radius: 0px; }
+    }
+    > tbody > tr:last-child {
+      > td:first-child { border-bottom-left-radius: 0px; }
+      > td:last-child { border-bottom-right-radius: 0px; }
+    }
+  }
+}
+
+#time-table {
+  width: 100%;
+}
+.time-table {
+  width: auto;
+  padding: 0px 30px 30px 30px;
+  font: 16px/18px Helvetica Neue, Arial, 'Open Sans';
+
+  $soft_border_color: rgba(219,219,221,0.61);
+  $hard_border_color: #cbcbcd;
+
+  thead {
+    tr {
+      th {
+        border-bottom: 1px solid $hard_border_color;
+        padding: 0px;
+        padding-bottom: 7px;
+        padding-left: 0px;
+
+        time {
+          display: block;
+          font-weight: 400;
+          width: 50px;
+          float: left;
+          text-align: left;
+          color: rgba(130,134,152,0.67);
+          font: 500 13px/20px Helvetica Neue, Arial;
+          -webkit-font-smoothing: antialiased;
+          position: relative;
+          margin: 0px 2px 0px -2px;
+
+          > i {
+            display: block;
+            position: absolute;
+            height: 7px;
+            width: 1px;
+            background: $soft_border_color;
+            margin: 0px 0px -7px 1px;
+            bottom: 0px;
+          }
+
+          &.thicker {
+            color: rgb(99, 105, 128);
+            font-weight: 600;
+
+            > i {
+              background: $hard_border_color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  tr {
+    td {
+      border-right: 1px solid $hard_border_color;
+      border-bottom: 1px solid $soft_border_color;
+      padding: 4px 0px 4px 4px;
+
+
+      &:first-child {
+        /*border-left: 1px solid $hard_border_color;*/
+        border-right: 1px solid $hard_border_color;
+        padding: 6px 14px 6px 5px;
+        font-size: 15px;
+        color: #131313;
+      }
+
+      &:last-child {
+        border-bottom-color: $soft_border_color;
+        border-right-color: $hard_border_color;
+        padding-left: 0px;
+      }
+
+      .time-mark {
+        display: block;
+        float: left;
+        width: 50px;
+        height: 29px;
+        margin: -4px 0px -4px 0px;
+        box-sizing: border-box;
+        border-right: 1px solid $soft_border_color;
+
+        &.thicker {
+          border-color: #dbdbdd;
+        }
+
+        &:last-of-type {
+          border: 0px;
+        }
+      }
+
+      .task-item {
+        position: relative;
+        background: linear-gradient(to right, #70c3ff, #7cc8ff);
+        height: 21px;
+        border-radius: 4px;
+      }
+    }
+
+    &:last-child {
+      td {
+        border-bottom-color: $hard_border_color;
+      }
+    }
+  }
+}

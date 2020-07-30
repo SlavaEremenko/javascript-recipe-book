@@ -1,6 +1,6 @@
 import React from 'react';
 import Todo from './Todo.js';
-import './App.css';
+import './App.scss';
 
 class App extends React.Component {
   constructor(props) {
@@ -63,9 +63,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-// TODO
-// Ensure Mongo DB is connected
-// Create ToDo action must result in a verifiable db entry creation
-// Make index send Todos from database
-// 
